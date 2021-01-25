@@ -1,0 +1,16 @@
+﻿<section class="game-container" tabindex="0" @onkeyup="HandleKeyboard">
+    <div class="sky">
+        <BirdComponent Bird="GameManager.Bird" />
+    </div>
+    <div class="ground"></div>
+
+    @if (GameManager.Pipes is not null)
+    {
+        foreach (var pipe in GameManager.Pipes)
+        {
+            <PipeComponent Pipe="pipe" />
+        }
+    }
+    <ScoreComponent Score="GameManager.Score" />
+</section>
+<div class="border-right"></div>

@@ -1,0 +1,8 @@
+﻿.pipe {
+    background-image: url('../images/flappybird-pipe.png');
+    position: absolute;
+}
+
+.pipe.top {
+    transform: rotate(180deg);
+}
