@@ -1,5 +1,5 @@
 # FlappyBirdDemo
-![](https://github.com/DoctorOnline/FlappyBirdDemo/workflows/Deploy/badge.svg)
+![](https://github.com/DoctorOnline/FlappyBirdDemo/workflows/Deploy%20to%20GitHub%20Pages/badge.svg)
 
 The FlappyBird game written in C# + Blazor.
 
