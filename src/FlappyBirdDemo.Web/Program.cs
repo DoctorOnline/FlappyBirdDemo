@@ -19,7 +19,6 @@ namespace FlappyBirdDemo.Web
 
         public static void ConfigureServices(IServiceCollection services)
         {
-            //builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             services.AddSingleton<IGameManager, GameManager>();
             services.AddSingleton<IGameConfiguration>(provider =>
             {
