@@ -37,7 +37,7 @@ namespace FlappyBirdDemo.Core
                 return;
 
             Score = 0;
-            Bird = Bird = new(Height / 2);
+            Bird = new(Height / 2);
             Pipes = new List<Pipe>();
 
             IsRunning = true;
