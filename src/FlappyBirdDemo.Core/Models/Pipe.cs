@@ -6,18 +6,9 @@ namespace FlappyBirdDemo.Core.Models
     {
         private static readonly Random Random = new();
 
-        public static Pipe Create(int worldWidth) 
-            => new(worldWidth) {
-                PositionX = worldWidth
-            };
+        public Pipe(int positionX)
+            => PositionX = positionX;
 
-        private Pipe(int worldWidth)
-        {
-            _worldWidth = worldWidth;
-            PositionX = worldWidth;
-        }
-
-        private readonly int _worldWidth;
         public int Height { get; } = 300;
         public int Width { get; } = 60;
         public int Gap { get; } = 130;
@@ -33,16 +24,13 @@ namespace FlappyBirdDemo.Core.Models
         public bool IsOffScreen()
             => PositionX <= Width * -1;
 
-        public bool IsCentered()
-            => HasEnteredCenter() && !HasExitedCenter();
+        public bool IsCentered(int center)
+            => HasEnteredCenter(center) && !HasPassedCenter(center);
 
-        public bool IsPassed()
-            => HasExitedCenter();
+        public bool HasPassedCenter(int center)
+            => PositionX <= center - (Width / 2) - Width;
 
-        private bool HasEnteredCenter()
-            => PositionX <= (_worldWidth / 2) + (Width / 2);
-
-        private bool HasExitedCenter()
-            => PositionX <= (_worldWidth / 2) - (Width / 2) - Width;
+        private bool HasEnteredCenter(int center)
+            => PositionX <= center + (Width / 2);
     }
 }

@@ -22,10 +22,15 @@ namespace FlappyBirdDemo.Web.Components
             if (e.Key is not " ") 
                 return;
 
+            HandleClick();
+        }
+
+        private void HandleClick()
+        {
             if (GameManager.IsRunning)
-                GameManager.Bird.Jump();
+                GameManager.Jump();
             else GameManager.StartGame();
-        } 
+        }
 
         private void OnStateChanged(object sender, EventArgs e) => StateHasChanged();
         public void Dispose() => GameManager.StateChanged -= OnStateChanged;

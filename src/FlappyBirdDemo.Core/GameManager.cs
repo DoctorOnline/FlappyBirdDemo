@@ -2,7 +2,6 @@
 using FlappyBirdDemo.Core.Models;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,12 +12,13 @@ namespace FlappyBirdDemo.Core
         private readonly IGameConfiguration _config;
         private const int Width = 500;
         private const int Height = 580;
+        private const int CenterX = Width / 2;
         private Pipe _prevPipe = null;
 
         public GameManager(IGameConfiguration config)
         {
             _config = config;
-            Bird = Bird.Create(Height, _config.JumpStrength);
+            Bird = new(Height / 2);
         }
 
         public event EventHandler StateChanged;
@@ -37,18 +37,21 @@ namespace FlappyBirdDemo.Core
                 return;
 
             Score = 0;
-            Bird = Bird.Create(Height, 50);
+            Bird = Bird = new(Height / 2);
             Pipes = new List<Pipe>();
 
             IsRunning = true;
             GameLoopAsync();
         }
 
+        public void Jump()
+            => Bird.Jump(_config.JumpStrength, b => b.PositionY < Height - b.Height);
+
         private async void GameLoopAsync()
         {
             while (IsRunning)
             {
-                MoveObject();
+                MoveObjects();
                 CheckForCollisions();
                 ManagePipes();
 
@@ -57,9 +60,7 @@ namespace FlappyBirdDemo.Core
             }
         }
 
-        private void GameOver() => IsRunning = false;
-
-        private void MoveObject()
+        private void MoveObjects()
         {
             Bird.Fall(_config.Gravity);
 
@@ -67,7 +68,7 @@ namespace FlappyBirdDemo.Core
             {
                 pipe.Move(_config.InitialSpeed);
 
-                if (pipe != _prevPipe && pipe.IsPassed())
+                if (pipe != _prevPipe && pipe.HasPassedCenter(CenterX))
                 {
                     Score++;
                     _prevPipe = pipe;
@@ -80,7 +81,7 @@ namespace FlappyBirdDemo.Core
             if (Bird.IsOnGround())
                 GameOver();
 
-            var centerPipe = Pipes.FirstOrDefault(p => p.IsCentered());
+            var centerPipe = Pipes.FirstOrDefault(p => p.IsCentered(CenterX));
 
             if (centerPipe is not null)
             {
@@ -96,12 +97,12 @@ namespace FlappyBirdDemo.Core
         private void ManagePipes()
         {
             if (!Pipes.Any() || Pipes.Last().PositionX <= Width / 2)
-                Pipes.Add(Pipe.Create(Width));
+                Pipes.Add(new(Width));
 
             if (Pipes.First().IsOffScreen())
                 Pipes.Remove(Pipes.First());
-
-             Debug.Write(Pipes.Count);
         }
+
+        private void GameOver() => IsRunning = false;
     }
 }

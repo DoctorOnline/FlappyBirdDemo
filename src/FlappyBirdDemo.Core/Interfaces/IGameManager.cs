@@ -17,5 +17,7 @@ namespace FlappyBirdDemo.Core.Interfaces
         ICollection<Pipe> Pipes { get; }
 
         void StartGame();
+
+        void Jump();
     }
 }

@@ -4,25 +4,12 @@ namespace FlappyBirdDemo.Core.Models
 {
     public sealed class Bird
     {
-        public static Bird Create(int worldHeight, int jumpStrength)
-        {
-            return new(worldHeight)
-            {
-                JumpStrength = jumpStrength
-            };
-        }
+        public Bird(int positionY)
+            => PositionY = positionY - Height;
 
-        private Bird(int worldHeight)
-        {
-            _worldHeight = worldHeight;
-            PositionY = worldHeight / 2 - Height;
-        }
-
-        private readonly int _worldHeight;
         public int Height { get; } = 45;
         public int Width { get; } = 60;
         public int PositionY { get; private set; }
-        private int JumpStrength { get; init; }
 
         public void Fall(int gravity) 
             => PositionY -= Math.Min(gravity, PositionY);
@@ -30,10 +17,10 @@ namespace FlappyBirdDemo.Core.Models
         public bool IsOnGround()
             => PositionY <= 0;
 
-        public void Jump()
+        public void Jump(int strength, Func<Bird, bool> predicate)
         {
-            if (PositionY < _worldHeight - Height)
-                PositionY += JumpStrength;
+            if (predicate(this))
+                PositionY += strength;
         }
     }
 }
