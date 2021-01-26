@@ -17,9 +17,9 @@ namespace FlappyBirdDemo.Core.Models
         public bool IsOnGround()
             => PositionY <= 0;
 
-        public void Jump(int strength, Func<Bird, bool> predicate)
+        public void Jump(int strength, Func<Bird, bool> canJump)
         {
-            if (predicate(this))
+            if (canJump(this))
                 PositionY += strength;
         }
     }
