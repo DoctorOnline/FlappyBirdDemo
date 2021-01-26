@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace FlappyBirdDemo.Core.Interfaces
 {
-    public interface IGameManager
+    public interface IGame
     {
         event EventHandler StateChanged;
 

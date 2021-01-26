@@ -1,9 +1,6 @@
 using FlappyBirdDemo.Core;
-using FlappyBirdDemo.Core.Interfaces;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 
 namespace FlappyBirdDemo.Web
 {
@@ -13,18 +10,8 @@ namespace FlappyBirdDemo.Web
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
-            ConfigureServices(builder.Services);
+            builder.Services.AddFlappyBirdDemo();
             await builder.Build().RunAsync();
-        }
-
-        public static void ConfigureServices(IServiceCollection services)
-        {
-            services.AddSingleton<IGameManager, GameManager>();
-            services.AddSingleton<IGameConfiguration>(provider =>
-            {
-                var config = provider.GetService<IConfiguration>();
-                return config?.GetSection(nameof(GameConfiguration)).Get<GameConfiguration>();
-            });
         }
     }
 }

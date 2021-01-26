@@ -4,7 +4,7 @@ namespace FlappyBirdDemo.Core.Models
 {
     public sealed class Bird
     {
-        public Bird(int positionY)
+        internal Bird(int positionY)
             => PositionY = positionY - Height;
 
         public int Height { get; } = 45;

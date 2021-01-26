@@ -1,19 +1,18 @@
-﻿using System;
-
-namespace FlappyBirdDemo.Core.Models
+﻿namespace FlappyBirdDemo.Core.Models
 {
     public sealed class Pipe
     {
-        private static readonly Random Random = new();
-
-        public Pipe(int positionX)
-            => PositionX = positionX;
+        internal Pipe(int positionX, int positionY)
+        {
+            PositionX = positionX;
+            PositionY = positionY;
+        }
 
         public int Height { get; } = 300;
         public int Width { get; } = 60;
         public int Gap { get; } = 130;
-        public int PositionX { get; private set; }
-        public int PositionY { get; } = Random.Next(0, 100);
+        public int PositionX { get; internal set; }
+        public int PositionY { get; internal set; }
 
         public int GapBottom => PositionY + Height;
         public int GapTop => GapBottom + Gap;
@@ -30,7 +29,7 @@ namespace FlappyBirdDemo.Core.Models
         public bool HasPassedCenter(int center)
             => PositionX <= center - (Width / 2) - Width;
 
-        private bool HasEnteredCenter(int center)
+        public bool HasEnteredCenter(int center)
             => PositionX <= center + (Width / 2);
     }
 }

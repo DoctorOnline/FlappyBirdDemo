@@ -3,6 +3,17 @@ body {
     display: flex;
 }
 
+.loading {
+    padding: 15px;
+    position: absolute;
+    align-content: center;
+}
+
+.loading span {
+    display: block;
+    font-family: monospace;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;

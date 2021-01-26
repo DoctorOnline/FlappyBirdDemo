@@ -9,7 +9,7 @@ namespace FlappyBirdDemo.Web.Components
     public partial class GameContainer : IDisposable
     {
         [Inject] 
-        private IGameManager GameManager { get; init; }
+        private IGame GameManager { get; init; }
 
         protected override Task OnInitializedAsync()
         {
