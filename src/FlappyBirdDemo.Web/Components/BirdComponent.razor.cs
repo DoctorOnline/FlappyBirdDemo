@@ -10,6 +10,6 @@ namespace FlappyBirdDemo.Web.Components
 
         private string Style => Bird is null 
                 ? "display: none;" 
-                : $"height: {Bird.Height}px; width: {Bird.Width}px; bottom: {Bird.PositionY}px";
+                : $"height: {Bird.Height}px; width: {Bird.Width}px; bottom: {Bird.PositionY}px; left: {Bird.PositionX}px;";
     }
 }

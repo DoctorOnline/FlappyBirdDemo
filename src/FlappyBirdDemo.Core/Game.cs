@@ -4,24 +4,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 
 namespace FlappyBirdDemo.Core
 {
     public sealed class Game : IGame
     {
-        private readonly IGameConfiguration _config;
-        private readonly IGenericBuilder<Pipe> _pipeBuilder;
-        private readonly IGenericBuilder<Bird> _birdBuilder;
+        private readonly GameConfiguration _config;
+        private readonly IGameObjectsFactory _factory;
         private readonly int _centerX;
         private Pipe _prevPipe = null;
 
-        public Game(IGameConfiguration config, IGenericBuilder<Pipe> pipeBuilder, IGenericBuilder<Bird> birdBuilder)
+        public Game(IOptions<GameConfiguration> config, IGameObjectsFactory factory)
         {
-            _config = config;
-            _pipeBuilder = pipeBuilder;
-            _birdBuilder = birdBuilder;
+            _config = config.Value;
+            _factory = factory;
             _centerX = _config.Width / 2;
-            Bird = _birdBuilder.Build();
+            Bird = _factory.CreateBird();
         }
 
         public event EventHandler StateChanged;
@@ -40,7 +39,7 @@ namespace FlappyBirdDemo.Core
                 return;
 
             Score = 0;
-            Bird = _birdBuilder.Build();
+            Bird = _factory.CreateBird();
             Pipes.Clear();
 
             IsRunning = true;
@@ -100,7 +99,7 @@ namespace FlappyBirdDemo.Core
         private void ManagePipes()
         {
             if (!Pipes.Any() || Pipes.Last().HasPassedCenter(_centerX))
-                Pipes.Add(_pipeBuilder.Build());
+                Pipes.Add(_factory.CreatePipe());
 
             if (Pipes.First().IsOffScreen())
                 Pipes.Remove(Pipes.First());

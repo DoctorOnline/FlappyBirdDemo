@@ -1,6 +1,8 @@
 using FlappyBirdDemo.Core;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FlappyBirdDemo.Web
 {
@@ -10,8 +12,11 @@ namespace FlappyBirdDemo.Web
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
-            builder.Services.AddFlappyBirdDemo();
+            ConfigureServices(builder.Services, builder.Configuration);
             await builder.Build().RunAsync();
         }
+
+        private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+            => services.AddFlappyBirdDemo(configuration);
     }
 }

@@ -1,5 +1,4 @@
 ﻿.bird {
     background-image: url('./images/flappy-bird.png');
-    left: 220px;
     position: absolute;
 }

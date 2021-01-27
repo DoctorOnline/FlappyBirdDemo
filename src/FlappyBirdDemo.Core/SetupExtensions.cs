@@ -1,6 +1,4 @@
-﻿using FlappyBirdDemo.Core.Builders;
-using FlappyBirdDemo.Core.Interfaces;
-using FlappyBirdDemo.Core.Models;
+﻿using FlappyBirdDemo.Core.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,17 +6,10 @@ namespace FlappyBirdDemo.Core
 {
     public static class SetupExtensions
     {
-        public static IServiceCollection AddFlappyBirdDemo(this IServiceCollection services)
-        {
-            return services
+        public static IServiceCollection AddFlappyBirdDemo(this IServiceCollection services, IConfiguration configuration)
+            => services
                 .AddSingleton<IGame, Game>()
-                .AddSingleton<IGenericBuilder<Pipe>, PipeBuilder>()
-                .AddSingleton<IGenericBuilder<Bird>, BirdBuilder>()
-                .AddSingleton<IGameConfiguration>(provider =>
-            {
-                var config = provider.GetService<IConfiguration>();
-                return config?.GetSection(nameof(GameConfiguration)).Get<GameConfiguration>();
-            });
-        }
+                .AddSingleton<IGameObjectsFactory, GameObjectsFactory>()
+                .Configure<GameConfiguration>(configuration.GetSection(nameof(GameConfiguration)));
     }
 }

@@ -1,8 +1,6 @@
-﻿using FlappyBirdDemo.Core.Interfaces;
-
-namespace FlappyBirdDemo.Core
+﻿namespace FlappyBirdDemo.Core
 {
-    public sealed class GameConfiguration : IGameConfiguration
+    public sealed class GameConfiguration
     {
         public int Height { get; } = 580;
         public int Width { get; } = 500;

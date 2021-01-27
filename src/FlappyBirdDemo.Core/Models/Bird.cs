@@ -4,12 +4,16 @@ namespace FlappyBirdDemo.Core.Models
 {
     public sealed class Bird
     {
-        internal Bird(int positionY)
-            => PositionY = positionY - Height;
+        internal Bird(int positionX, int positionY)
+        {
+            PositionX = positionX;
+            PositionY = positionY - Height;
+        } 
 
         public int Height { get; } = 45;
         public int Width { get; } = 60;
         public int PositionY { get; private set; }
+        public int PositionX { get; }
 
         public void Fall(int gravity) 
             => PositionY -= Math.Min(gravity, PositionY);
