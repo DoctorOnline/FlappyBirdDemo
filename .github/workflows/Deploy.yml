@@ -35,9 +35,6 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 5.0.102
-          
-      - name: Install dependencies
-        run: dotnet restore ./src/FlappyBirdDemo.Web/FlappyBirdDemo.Web.csproj
 
       - name: Publish .NET Project
         run: dotnet publish ./src/FlappyBirdDemo.Web/FlappyBirdDemo.Web.csproj -c Release -o release --nologo
