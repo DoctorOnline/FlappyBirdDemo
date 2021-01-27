@@ -23,10 +23,14 @@ jobs:
         with:
           dotnet-version: 5.0.102
       
+      - name: Install dependencies
+        run: dotnet restore ./src/FlappyBirdDemo.Web/FlappyBirdDemo.Web.csproj
+      
       - name: Build project
         run: dotnet build ./src/FlappyBirdDemo.Web/FlappyBirdDemo.Web.csproj -c Release
      
   deploy:
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
