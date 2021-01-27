@@ -1,7 +1,6 @@
 /* /Components/BirdComponent.razor.rz.scp.css */
 .bird[b-cs8d6ucj0i] {
     background-image: url('./images/flappy-bird.png');
-    left: 220px;
     position: absolute;
 }
 /* /Components/GameContainer.razor.rz.scp.css */
